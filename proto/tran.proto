@@ -1,0 +1,21 @@
+syntax = "proto3";
+package tran;
+/*
+*/
+message TranRequest {
+    string private_key = 1;
+    string from = 2;
+    string to = 3;
+    string token = 4;
+    string amount = 5;
+}
+
+message TranResponse {
+    string hash = 1;
+}
+
+
+
+service Tran {
+    rpc TranRpc (TranRequest) returns (TranResponse);
+}
