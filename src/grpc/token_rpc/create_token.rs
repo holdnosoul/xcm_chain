@@ -7,7 +7,11 @@ use crate::block_chain::utxo::Utxo;
 use crate::block_chain::utxos::Utxos;
 
 pub fn main(req:TokenRequest,chain:&mut MutexGuard<Chain>) ->Result<Response<TokenResponse>, Status>{
-    let amount = req.clone().amount.parse::<f32>().unwrap();
+    let amount = req.clone().amount.parse::<f32>();
+    let amount = match amount {
+        Ok(f) => f,
+        Err(_e) => 0.0,
+    };
     let from = "00000000000000000000000000000000".to_string();
     let to = req.clone().address;
     let token_name = req.clone().token;

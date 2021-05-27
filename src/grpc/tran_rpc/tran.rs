@@ -9,7 +9,11 @@ use crate::block_chain::utxos::Utxos;
 
 pub fn main(req:TranRequest,chain:&mut MutexGuard<Chain>) ->Result<Response<TranResponse>, Status>{
     let pk = req.clone().private_key;
-    let amount = req.clone().amount.parse::<f32>().unwrap();
+    let amount = req.clone().amount.parse::<f32>();
+    let amount = match amount {
+        Ok(f) => f,
+        Err(_e) => 0.0,
+    };
     let from = req.clone().from;
     let to = req.clone().to;
     let token_name = req.clone().token;
